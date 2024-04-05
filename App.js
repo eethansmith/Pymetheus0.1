@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './HomeScreen';
 import CameraScreen from './CameraScreen'; 
-import ChatScreen from './src/components/ChatScreen';
+import ChatScreen from './ChatScreen';
 import { StyleSheet, View, Text, TouchableOpacity, StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator();
