@@ -55,7 +55,7 @@ function ChatScreen({ route }) {
     clearInterval(animationInterval);
     setTypingAnimationText("");
     setIsBotTyping(false);
-    addBotMessage(botResponse);
+    addBotMessage("Hello! I'm a bot.");
   } catch (error) {
     console.error("Failed to fetch GPT response", error);
     clearInterval(animationInterval);
