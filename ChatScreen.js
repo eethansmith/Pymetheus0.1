@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, KeyboardAvoidingView, Platform, FlatList, Image } from 'react-native';
-import { interpretAndSolveProgrammingProblem } from './gptApiCall';
-
-import { Asset } from 'expo-asset';
-
-import * as FileSystem from 'expo-file-system';
 
 function ChatScreen({ route }) {
   const [messages, setMessages] = useState([]);
   const [isBotTyping, setIsBotTyping] = useState(false);
   const [typingAnimationText, setTypingAnimationText] = useState("");
   const [hasStartedTyping, setHasStartedTyping] = useState(false);
-  const imagePath = route.params.imagePath;
 
   useEffect(() => {
     if (route.params?.message) {
@@ -58,13 +52,6 @@ function ChatScreen({ route }) {
 
   // Fetch GPT response
   try {
-    // This converts your local image asset to a file URI that can be read
-    const asset = Asset.fromModule(require('IMG_4823.jpeg'));
-    await asset.downloadAsync(); // This ensures the asset is downloaded to the device
-    const imageBase64 = await FileSystem.readAsStringAsync(asset.localUri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    const botResponse = await interpretAndSolveProgrammingProblem(imageBase64);
     clearInterval(animationInterval);
     setTypingAnimationText("");
     setIsBotTyping(false);
