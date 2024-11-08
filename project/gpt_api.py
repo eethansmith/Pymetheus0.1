@@ -1,7 +1,7 @@
 import base64
 from openai import OpenAI
 
-def gpt_api(image_path):
+def gpt_api_call(image_path):
     client = OpenAI()
 
     # Function to encode the image
