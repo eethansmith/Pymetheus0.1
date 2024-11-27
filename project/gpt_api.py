@@ -1,16 +1,13 @@
 import base64
 from openai import OpenAI
 
-def gpt_api_call(image_path):
-    client = OpenAI()
+def gpt_api_image(image_path):
+    client = OpenAI(api_key="sk-proj-mzVKIfUZ7G8WcYJhE4qHT3BlbkFJZKHISnsUD6LWwOjSfTOS")
 
     # Function to encode the image
     def encode_image(image_path):
         with open(image_path, "rb") as image_file:
             return base64.b64encode(image_file.read()).decode('utf-8')
-
-    # Path to your image
-    image_path = "path_to_your_image.jpg"
 
     # Getting the base64 string
     base64_image = encode_image(image_path)
@@ -23,7 +20,7 @@ def gpt_api_call(image_path):
         "content": [
             {
             "type": "text",
-            "text": "What is in this image?",
+            "text": "Extract in full the details of which is asked of the user, provide all text that is on the screen and all options",
             },
             {
             "type": "image_url",
@@ -35,5 +32,21 @@ def gpt_api_call(image_path):
         }
     ],
     )
+    return(response.choices[0].message.content)
 
-    print(response.choices[0])
+def gpt_api_text(text):
+    client = OpenAI(api_key="sk-proj-mzVKIfUZ7G8WcYJhE4qHT3BlbkFJZKHISnsUD6LWwOjSfTOS")
+
+    completion = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a very capable comprehension expert with an understanding in many areas, given the users question, you are to provide the answer and explaination as best you can."},
+            {
+                "role": "user",
+                "content": f"{text}"
+            }
+        ]
+    )
+
+    return(completion.choices[0].message.content)
+
