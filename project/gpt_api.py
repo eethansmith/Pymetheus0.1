@@ -34,13 +34,13 @@ def gpt_api_image(image_path):
     )
     return(response.choices[0].message.content)
 
-def gpt_api_text(text):
+def gpt_api_text(system_message, text):
     client = OpenAI(api_key="sk-proj-mzVKIfUZ7G8WcYJhE4qHT3BlbkFJZKHISnsUD6LWwOjSfTOS")
 
     completion = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "system", "content": "You are a very capable comprehension expert with an understanding in many areas, given the users question, you are to provide the answer and explaination as best you can."},
+            {"role": "system", "content": "{system_message}"},
             {
                 "role": "user",
                 "content": f"{text}"
