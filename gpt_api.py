@@ -1,9 +1,11 @@
 import base64
 from openai import OpenAI
 
-def gpt_api_image(image_path):
-    client = OpenAI(api_key="sk-proj-mzVKIfUZ7G8WcYJhE4qHT3BlbkFJZKHISnsUD6LWwOjSfTOS")
+openai_api_key = st.secrets["OPENAI_API_KEY"]
 
+client = OpenAI(api_key=openai_api_key)
+
+def gpt_api_image(image_path):
     # Function to encode the image
     def encode_image(image_path):
         with open(image_path, "rb") as image_file:
@@ -13,7 +15,7 @@ def gpt_api_image(image_path):
     base64_image = encode_image(image_path)
 
     response = client.chat.completions.create(
-    model="gpt-4o-mini",
+    model="gpt-4",
     messages=[
         {
         "role": "user",
@@ -35,10 +37,9 @@ def gpt_api_image(image_path):
     return(response.choices[0].message.content)
 
 def gpt_api_text(system_message, text):
-    client = OpenAI(api_key="sk-proj-mzVKIfUZ7G8WcYJhE4qHT3BlbkFJZKHISnsUD6LWwOjSfTOS")
-
+    
     completion = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "{system_message}"},
             {
