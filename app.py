@@ -1,9 +1,11 @@
 import streamlit as st
-from gpt_api import gpt_api_image, gpt_api_text
+from gpt_api import gpt_api_image, gpt_api_text, gpt_api_solver
 import os
 
-st.title("Upload Files")
+st.title("Kizz-Worth AI")
+st.write("Welcome to the Kizz-Worth AI, where you can ask questions and get answers from the AI.")
 
+st.write("### Upload your Question:")
 # Choose file from browser
 uploaded_file = st.file_uploader("Choose a file") 
 
@@ -23,5 +25,7 @@ if uploaded_file:
     
     st.write(response)
     
-    response = gpt_api_text(response)
-    st.write(response)
+    st.write("## Your Answer:")
+    
+    solution = gpt_api_solver(response)
+    st.write(solution)

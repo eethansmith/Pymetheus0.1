@@ -1,5 +1,6 @@
 import base64
 from openai import OpenAI
+import streamlit as st
 
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
@@ -15,7 +16,7 @@ def gpt_api_image(image_path):
     base64_image = encode_image(image_path)
 
     response = client.chat.completions.create(
-    model="gpt-4",
+    model="gpt-4o-mini",
     messages=[
         {
         "role": "user",
@@ -42,6 +43,21 @@ def gpt_api_text(system_message, text):
         model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "{system_message}"},
+            {
+                "role": "user",
+                "content": f"{text}"
+            }
+        ]
+    )
+
+    return(completion.choices[0].message.content)
+
+def gpt_api_solver(text):
+    
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": "You have been given the following question, which option is best suited for the question at hand. Please provide the answer in full."},
             {
                 "role": "user",
                 "content": f"{text}"
